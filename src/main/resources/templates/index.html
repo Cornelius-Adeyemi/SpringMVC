@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th = "https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>Hello World!</h1>
+
+<form method="post" th:action="@{/home}" th:object="${product}">
+    <input name="category" th:field="*{category}">
+    <input name="product_name" th:field="*{productName}">
+    <button>Submit</button>
+</form>
+</body>
+</html>
