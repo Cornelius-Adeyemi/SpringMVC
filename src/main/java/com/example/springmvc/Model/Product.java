@@ -1,6 +1,7 @@
 package com.example.springmvc.Model;
 
 
+import com.example.springmvc.DTO.ProductDTO;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -19,4 +20,13 @@ public class Product {
     private String category;
     private BigDecimal price;
 
+    public Product(ProductDTO productDTO) {
+        this.productName = productDTO.getProductName();
+        this.category = productDTO.getCategory();
+        this.price =  productDTO.getPrice();
+    }
+
+    public Product() {
+
+    }
 }

@@ -1,4 +1,33 @@
 package com.example.springmvc.ServiceImpl;
 
-public class ProductServiceImpl {
+import com.example.springmvc.DTO.ProductDTO;
+import com.example.springmvc.Model.Product;
+import com.example.springmvc.Repository.ProductRepository;
+import com.example.springmvc.Services.ProductService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
+
+@Service
+public class ProductServiceImpl implements ProductService {
+
+
+    private ProductRepository productRepository;
+    @Autowired
+    public ProductServiceImpl(ProductRepository productRepository) {
+        this.productRepository = productRepository;
+    }
+
+    @Override
+    public Product saveProduct(ProductDTO productDTO) {
+        Product product = new Product(productDTO);
+        return productRepository.save(product);
+    }
+
+    @Override
+    public List<Product> findAll() {
+        return productRepository.findAll();
+    }
 }
