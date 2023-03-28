@@ -17,15 +17,24 @@ public class ProductServiceImpl implements ProductService {
 
 
     private ProductRepository productRepository;
+    private UserRepository userRepository;
     @Autowired
-    public ProductServiceImpl(ProductRepository productRepository) {
+    public ProductServiceImpl(ProductRepository productRepository, UserRepository userRepository) {
         this.productRepository = productRepository;
+        this.userRepository = userRepository;
     }
 
     @Override
-    public Product saveProduct(ProductDTO productDTO) {
+    public Product saveProduct(ProductDTO productDTO, Long id) {
         Product product = new Product(productDTO);
+        User user = userRepository.findById(id).get();
+        product.setUser(user);
         return productRepository.save(product);
+    }
+
+    @Override
+    public List<Product> findAllByUserId(Long id) {
+        return productRepository.findByUserId(id);
     }
 
     @Override

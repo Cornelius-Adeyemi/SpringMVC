@@ -6,7 +6,7 @@
 </head>
 <body>
 <h1>Product Register</h1>
-
+<a href="/logout">Logout</a>
 <form method="post" th:action="@{/home}" th:object="${product}">
     Category <input name="category" th:field="*{category}"><br/>
     Product Name <input name="product_name" th:field="*{productName}">

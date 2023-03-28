@@ -1,7 +1,6 @@
 package com.example.springmvc.Controller;
 
 import com.example.springmvc.DTO.ProductDTO;
-import com.example.springmvc.Model.Product;
 import com.example.springmvc.Services.ProductService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -49,7 +48,7 @@ public class ProductController {
         if (session.getAttribute("usernumber")==null){
             return "login";
         }
-        productService.saveProduct(product);
+        productService.saveProduct(product, (Long)session.getAttribute("usernumnber"));
         return "home";
     }
 }
