@@ -20,6 +20,9 @@ public class Product {
     private String category;
     private BigDecimal price;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
     public Product(ProductDTO productDTO) {
         this.productName = productDTO.getProductName();
         this.category = productDTO.getCategory();
