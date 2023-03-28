@@ -72,9 +72,12 @@ public class UserController {
     }
 
     @GetMapping("/logout")
-    public String logout(HttpServletRequest httpServletRequest){
+    public ModelAndView logout(HttpServletRequest httpServletRequest){
         HttpSession session = httpServletRequest.getSession();
         session.removeAttribute("usernumber");
-        return "index";
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("index");
+        modelAndView.addObject("user", new UserDTO());
+        return modelAndView;
     }
 }
