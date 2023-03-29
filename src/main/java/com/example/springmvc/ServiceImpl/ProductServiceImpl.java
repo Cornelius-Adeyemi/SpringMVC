@@ -7,6 +7,9 @@ import com.example.springmvc.Repository.ProductRepository;
 import com.example.springmvc.Repository.UserRepository;
 import com.example.springmvc.Services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -27,19 +30,31 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Product saveProduct(ProductDTO productDTO, Long id) {
         Product product = new Product(productDTO);
-        User user = userRepository.findById(id).get();
-        product.setUser(user);
+        Optional<User> user = userRepository.findById(id);
+        User existingUser = user.isPresent()?user.get():null;
+        product.setUser(existingUser);
         return productRepository.save(product);
     }
 
     @Override
-    public List<Product> findAllByUserId(Long id) {
-        return productRepository.findByUserId(id);
+    public Page findAllByUserId(Long id) {
+        return new PageImpl(productRepository.findByUserId(id));
     }
 
     @Override
     public List<Product> findAll() {
         List<Product> productList =  productRepository.findAll();
         return productList;
+    }
+
+    @Override
+    public Product findProduct(Long productId) {
+        return productRepository.findById(productId)
+                .orElseThrow(()-> new NullPointerException("Product with id "+productId+" does not exist"));
+    }
+
+    @Override
+    public void deleteById(Long id) {
+        productRepository.deleteById(id);
     }
 }

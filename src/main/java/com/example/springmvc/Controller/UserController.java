@@ -8,6 +8,8 @@ import com.example.springmvc.Services.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.support.PagedListHolder;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -60,14 +62,17 @@ public class UserController {
         if (user==null){
             return "login";
         }
-        HttpSession session = httpServletRequest.getSession();
+        HttpSession session = httpServletRequest.getSession(true);
         Long id = user.getId();
         session.setAttribute("usernumber", id);
-        List<Product> productList = productService.findAllByUserId(id);
-        if(productList==null){
-            productList = new ArrayList<>();
-        }
-        model.addAttribute("products", productList);
+        Page<Product> products = productService.findAllByUserId(id);
+        PagedListHolder<Product> productsPage = new PagedListHolder<>(products.getContent());
+        productsPage.setPage(0);
+        productsPage.setPageSize(5);
+
+        model.addAttribute("products", productsPage.getPageList());
+        model.addAttribute("currentPage", productsPage.getPage());
+        model.addAttribute("totalPages", productsPage.getMaxLinkedPages());
         return "home";
     }
 
