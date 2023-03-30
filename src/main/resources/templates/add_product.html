@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!--The attribute xmlns of the html tag below declares a Thymeleaf namespace for adding java codes into HTML-->
 <html lang="en" xmlns:th = "https://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
@@ -7,6 +8,11 @@
 <body>
 <h1>Product Register</h1>
 <a href="/logout">Logout</a>
+<!-- Below we find Thymeleaf accessing our new ProductDTO() object coming from the controller
+by referring to the attribute name "product" that it was given in our controller method
+the th:object= ${states that a name written within a curly braces} that begins with a $ sign is an object from Java
+and th:field = *{name in here} is the name of a field or local variable belonging to the above declared
+(th:object = "${object}") object's class-->
 <form method="post" th:action="@{/add-products}" th:object="${product}">
     Category <input name="category" th:field="*{category}"><br/>
     Product Name <input name="product_name" th:field="*{productName}">

@@ -8,6 +8,10 @@ import java.math.BigDecimal;
 
 @Data
 @NoArgsConstructor
+/*
+A product DTO Class to help transfer data from the Product class to be delivered to the user on the view
+as well as to recieve data from the user and deliver to the Product object for delivery to the database.
+ */
 public class ProductDTO {
     private Long id;
     private String productName;

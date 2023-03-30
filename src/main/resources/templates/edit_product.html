@@ -7,7 +7,8 @@
 <body>
 <h1>Edit Product </h1>
 <a href="/logout">Logout</a>
-
+<!-- similar to add_product.html comments the only difference is the ProductDTO object
+holds the value of the object about to be editted by the method handling post requests to /edit-products-->
 <form method="post" th:action="@{/edit-products}" th:object="${product}">
     <input type="hidden" th:field="*{id}">
     Category <input name="category" type="text" th:field="*{category}"><br/>

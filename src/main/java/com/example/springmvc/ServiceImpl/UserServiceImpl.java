@@ -30,8 +30,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public User findUser(UserDTO userDTO) {
         User user =  userRepository.findByUsername(userDTO.getUsername()).get();
-        //TODO:EXPLAIN REASON FOR ERROR WITH HASHING
-        boolean match = user.checkpassword(userDTO.getPassword(), user.getPassword());
+        //Using the checkPassword method in our user model class we can verify user's password credentials
+        //and either grant or reject their Authority (in application security terms) or their "right"(in layman's terms)
+        // to access our application's secure endpoint.
+        boolean match = user.checkPassword(userDTO.getPassword(), user.getPassword());
         if (match){
             return user;
         }

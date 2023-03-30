@@ -16,7 +16,14 @@
     </tr>
     </thead>
     <tbody>
+    <!--Our th:each Thymeleaf Syntax simply runs a for loop on our products object which is a list of products gotten from our
+    product Page object in our product controller. The for loop will display a row of table data for each product object that is
+    in the product list. The product list is the list of product for the currently set page, based on the setPageSize() method
+    that has been set in the ProductController to assist with our data presentation or representation in a paginated form for
+    our user's easy or smooth experience viewing bulk data.-->
     <tr th:each="product : ${products}">
+        <!--for each product's local variable, cast the data to text format for our HTML page and display it as the text value in
+         our <td> or table data tag -->
         <td th:text="${product.category}"></td>
         <td th:text="${product.productName}"></td>
         <td th:text="${product.price}"></td><br>
@@ -25,6 +32,9 @@
     </tr>
     </tbody>
 </table>
+<!--use numbers.sequence() to create a list numbers from 0 - (the total number of pages minus 1. It is minus one because
+we are starting from 0. Just like array indexing) and when any of these numbers are clicked pass that number as a request parameter.
+Please see /products/ endpoint's method called homeWithMV to see what happens to the page number ones it get sent to our controller-->
 <tr th:if="${totalPages > 1}">
             <a th:href="@{/products/(page=0)}">&laquo;</a>
         <td th:each="i : ${#numbers.sequence(0, totalPages -1)}"

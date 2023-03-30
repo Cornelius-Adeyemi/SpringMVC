@@ -5,6 +5,7 @@
     <title>Login</title>
 </head>
 <body>
+<!--SEE add_product.html for comments explaining similar aspects or areas of this html file.-->
 <form method="post" th:action="@{/login}" th:object="${user}">
   Username <input name="category" th:field="*{username}"><br/>
   Password <input name="product_name" th:field="*{password}"><br/>
